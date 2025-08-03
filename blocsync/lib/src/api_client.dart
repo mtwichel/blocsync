@@ -6,19 +6,19 @@ import 'package:web_socket_client/web_socket_client.dart';
 class ApiClient {
   ApiClient({
     required this.apiKey,
-    required Uri baseUrl,
+    String baseUrl = 'https://api.blocsync.dev',
     http.Client? client,
     this.authenticationToken,
   })  : client = client ?? http.Client(),
-        host = baseUrl.host,
-        port = baseUrl.port,
-        secure = baseUrl.scheme.endsWith('s');
+        host = Uri.parse(baseUrl).host,
+        port = Uri.parse(baseUrl).port,
+        secure = Uri.parse(baseUrl).scheme.endsWith('s');
 
   final String apiKey;
   final http.Client client;
 
   final String host;
-  final int port;
+  final int? port;
   final bool secure;
 
   String? authenticationToken;
