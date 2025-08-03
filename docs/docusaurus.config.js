@@ -6,9 +6,9 @@ const darkCodeTheme = require('prism-react-renderer').themes.vsDark;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Blocsync',
+  title: 'Blocsync Docs',
   tagline: 'A bloc that syncs its state to the cloud. ',
-  url: 'https://docs.blocsyncer.com',
+  url: 'https://docs.blocsync.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -41,6 +41,20 @@ const config = {
           customCss: require.resolve('./src/css/custom.css'),
         },
       }),
+    ],
+  ],
+
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: '/',
+            to: '/docs/quickstart',
+          },
+        ],
+      },
     ],
   ],
 
