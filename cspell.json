@@ -10,7 +10,8 @@
     "mocktail",
     "mtwichel",
     "pointycastle",
-    "secp"
+    "secp",
+    "Supabase"
   ],
   "ignoreWords": [],
   "import": []
