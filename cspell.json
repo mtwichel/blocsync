@@ -1,9 +1,17 @@
 {
   "version": "0.2",
-  "ignorePaths": [],
+  "ignorePaths": [
+    "**/example/**",
+    "**/node_modules/**",
+    "**.svg",
+    "**/dist/**",
+  ],
   "dictionaryDefinitions": [],
   "dictionaries": [],
   "words": [
+    "FLUSHALL",
+    "Twichel",
+    "pubspec",
     "blocsync",
     "endtemplate",
     "Hmac",
