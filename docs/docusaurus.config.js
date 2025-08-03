@@ -34,8 +34,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/mtwichel/blocsync/tree/main/',
+          editUrl: 'https://github.com/mtwichel/blocsync/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

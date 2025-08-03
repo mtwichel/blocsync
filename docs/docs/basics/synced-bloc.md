@@ -2,6 +2,7 @@
 sidebar_position: 1
 title: 🔄 SyncedBloc
 ---
+
 # 🔄 SyncedBloc
 
 Using `SyncedBloc` is incredibly simple - just follow these three steps to get your bloc states syncing across devices!
@@ -18,7 +19,7 @@ class CounterBloc extends SyncedBloc<CounterEvent, int> {
     on<Increment>((event, emit) => emit(state + 1));
     on<Decrement>((event, emit) => emit(state - 1));
   }
-  
+
   // Add toJson and fromJson methods next...
 }
 ```
@@ -81,7 +82,7 @@ class TodoBloc extends SyncedBloc<TodoEvent, TodoState> {
 Your states will now automatically sync across devices! No additional setup required - `SyncedBloc` handles all the synchronization logic behind the scenes.
 
 - **Real-time sync**: Changes are pushed to other devices immediately
-- **Offline support**: Changes are queued and synced when connection is restored  
+- **Offline support**: Changes are queued and synced when connection is restored
 - **Conflict resolution**: Latest write wins for simplicity
 - **Efficient**: Only sends state diffs when possible
 

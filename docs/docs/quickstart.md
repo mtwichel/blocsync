@@ -29,7 +29,9 @@ class CounterBloc extends SyncedBloc<CounterEvent, int> {
 ```
 
 ## Setup
+
 To setup blocsync, start by configuring
+
 1. Local caching
 2. Remote caching
 3. Authentication (optional)
@@ -40,13 +42,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   BlocSyncConfig.localStorage = LocalStorage
   BlocSyncConfig.apiClient = ApiClient(
     apiKey: 'your_api_key',
   );
   BlocSyncConfig.authProvider = FirebaseAuthProvider();
-  
+
   runApp(MyApp());
 }
 ```
@@ -66,7 +68,8 @@ Blocs can be configured as either **private** (per user) or **public**:
 - **Private blocs**: Require user authentication to ensure each user's state stays private
 
 For private blocs, we support multiple authentication providers:
+
 - Firebase Auth
 - Supabase
-- Auth0  
+- Auth0
 - Custom authentication solutions
