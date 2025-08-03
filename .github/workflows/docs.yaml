@@ -27,10 +27,24 @@ jobs:
       - name: 📚 Git Checkout
         uses: actions/checkout@v4
 
-      - name: 📦 Build Site
-        uses: ./.github/actions/astro_site
+      - name: ⚙️ Setup Node
+        uses: actions/setup-node@v4
         with:
-          working_directory: ./docs
+          node-version: 22
+
+      - name: ⬇️ Install Dependencies
+        run: npm install
+        working-directory: docs
+
+      - name: ✨ Check Format
+        run: npm run format:check
+        working-directory: docs
+
+      - name: 📦 Build Site
+        uses: withastro/action@v2
+        with:
+          path: docs
+          node-version: 22
 
   deploy:
     needs: build
