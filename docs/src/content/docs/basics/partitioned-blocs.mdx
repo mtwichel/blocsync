@@ -1,11 +1,10 @@
 ---
-sidebar_position: 2
 title: 📦 Partitioned Blocs
+description: Create multiple isolated state instances for the same bloc
 ---
 
-# Partitioned Blocs
-
-In most application, it's common to want to create multiple _partitions_ to have multiple states for the same bloc. For example:
+In most application, it's common to want to create multiple _partitions_ to have
+multiple states for the same bloc. For example:
 
 - Separate documents
 - Unique social feeds
@@ -39,6 +38,5 @@ class DocumentBloc extends SyncedBloc<DocumentEvent, DocumentState> {
 }
 ```
 
-:::note
-Blocs can be private **and** partitioned. For more information on private blocs, see [Private Blocs](/docs/basics/private-blocs)
-:::
+:::note Blocs can be private **and** partitioned. For more information on
+private blocs, see [Private Blocs](/basics/private-blocs) :::

@@ -1,55 +1,28 @@
 {
-  "name": "docs",
-  "version": "0.0.0",
-  "private": true,
+  "name": "blocsync-docs",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "docusaurus": "docusaurus",
-    "start": "docusaurus start",
-    "build": "docusaurus build",
-    "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
-    "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint ."
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@docusaurus/core": "^3.6.0",
-    "@docusaurus/preset-classic": "^3.6.0",
-    "@mdx-js/react": "^3.0.1",
-    "clsx": "^2.1.1",
-    "prism-react-renderer": "^2.3.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.3.1"
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/starlight": "^0.35.2",
+    "astro": "^5.12.8",
+    "sharp": "^0.34.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.24.5",
-    "@docusaurus/eslint-plugin": "^3.6.0",
-    "@docusaurus/module-type-aliases": "^3.6.0",
-    "@docusaurus/tsconfig": "^3.6.0",
-    "eslint": "^9.2.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.4.5",
-    "jest": "^29.7.0",
-    "eslint-plugin-jest": "^28.6.0"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "@astrojs/starlight-tailwind": "^4.0.1",
+    "@tailwindcss/vite": "^4.1.11",
+    "prettier": "^3.6.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "starlight-links-validator": "^0.17.0"
   }
 }

@@ -1,41 +1,24 @@
-# 📚 Docs
+# Blocsync Docs 🐦📚
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-### ⚙️ Installation
+Home of the [docs.blocsync.dev](https://docs.blocsync.dev) site.
 
-```
-$ npm install
-```
+## 🧞 Commands
 
-### 🧑‍💻 Local Development
+All commands are run from the root of the project, from a terminal:
 
-```
-$ npm start
-```
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## 👀 Want to learn more?
 
-### 📦 Build
-
-```
-$ npm build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### ☁️ Deployment
-
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Check out [Starlight’s docs](https://starlight.astro.build/), read
+[the Astro documentation](https://docs.astro.build), or jump into the
+[Astro Discord server](https://astro.build/chat).
