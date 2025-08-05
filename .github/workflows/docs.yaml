@@ -41,7 +41,7 @@ jobs:
         working-directory: docs
 
       - name: 📦 Build Site
-        uses: withastro/action@v2
+        uses: withastro/action@v4
         with:
           path: docs
           node-version: 22
