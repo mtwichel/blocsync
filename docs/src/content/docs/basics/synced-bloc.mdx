@@ -42,9 +42,9 @@ class CounterBloc extends SyncedBloc<CounterEvent, int> {
 }
 ```
 
-:::tip[Selective Syncing] If you don't want certain parts of your state to be
-synced, simply don't include them in the JSON! Only the data you serialize in
-`toJson` will be synchronized across devices. :::
+:::tip[Selective Syncing]
+If you don't want certain parts of your state to be synced, simply don't include them in the JSON! Only the data you serialize in `toJson` will be synchronized across devices.
+:::
 
 ### Complex State Example
 

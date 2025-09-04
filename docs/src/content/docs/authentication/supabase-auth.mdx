@@ -2,10 +2,22 @@
 title: Supabase Provider
 description: Configure Blocsync with Supabase Authentication
 ---
+## Install
+
+Import [supabase_blocsync_authentication_provider](https://pub.dev/packages/supabase_blocsync_authentication_provider)
+
+```base
+flutter pub add supabase_blocsync_authentication_provider
+```
+
+## Configure
+
+Configure Blocsync with Supabase Auth
 
 ```dart
 import 'package:blocsync/blocsync.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_blocsync_authentication_provider/supabase_blocsync_authentication_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,0 +1,43 @@
+---
+title: Super Simple Authentication
+description: Configure Blocsync with Super Simple Authentication
+---
+
+## Install
+
+Import [super_simple_authentication_blocsync_authentication_provider](https://pub.dev/packages/super_simple_authentication_blocsync_authentication_provider)
+
+```base
+flutter pub add super_simple_authentication_blocsync_authentication_provider
+```
+
+## Configure
+
+Configure Blocsync with Firebase Auth
+
+```dart
+import 'package:blocsync/blocsync.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:super_simple_authentication_blocsync_authentication_provider/super_simple_authentication_blocsync_authentication_provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Setup Firebase
+  final superSimpleAuthentication = SuperSimpleAuthentication(
+    baseUrl: 'https://your-server.com',
+    basePath: '/authentication',
+  );
+
+  // Configure Blocsync with Super Simple Authentication
+  BlocSyncConfig.authProvider = SuperSimpleAuthenticationBlocsyncAuthenticationProvider(
+    authenticationClient: superSimpleAuthentication,
+  );
+  BlocSyncConfig.apiClient = ApiClient(
+    baseUrl: Uri.parse('https://your-server.com'),
+    apiKey: 'your_api_key',
+  );
+
+  runApp(MyApp());
+}
+```

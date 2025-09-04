@@ -3,12 +3,30 @@ title: Firebase Auth
 description: Configure Blocsync with Firebase Authentication
 ---
 
+## Install
+
+Import [firebase_blocsync_authentication_provider](https://pub.dev/packages/firebase_blocsync_authentication_provider)
+
+```base
+flutter pub add firebase_blocsync_authentication_provider
+```
+
+## Configure
+
+Configure Blocsync with Firebase Auth
+
 ```dart
 import 'package:blocsync/blocsync.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_blocsync_authentication_provider/firebase_blocsync_authentication_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Setup Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // Configure Blocsync with Firebase Auth
   BlocSyncConfig.authProvider = FirebaseAuthProvider();
