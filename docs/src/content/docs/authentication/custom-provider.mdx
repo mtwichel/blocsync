@@ -6,15 +6,11 @@ description: Implement your own authentication provider for Blocsync
 You can also implement your own authentication:
 
 ```dart
-class CustomAuthProvider implements AuthProvider {
-  @override
-  Future<String?> getCurrentUserId() async {
-    // Return your user's unique ID
-    return await MyAuthService.getCurrentUserId();
-  }
+class CustomAuthProvider implements AuthenticationProvider {
+  CustomAuthProvider();
 
   @override
-  Future<String?> getAuthToken() async {
+  Future<String?> getToken() async {
     // Return a valid JWT or auth token
     return await MyAuthService.getToken();
   }
