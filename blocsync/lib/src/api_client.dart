@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blocsync/blocsync.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_socket_client/web_socket_client.dart';
 
@@ -8,7 +9,6 @@ class ApiClient {
     required this.apiKey,
     String baseUrl = 'https://api.blocsync.dev',
     http.Client? client,
-    this.authenticationToken,
   })  : client = client ?? http.Client(),
         host = Uri.parse(baseUrl).host,
         port = Uri.parse(baseUrl).port,
@@ -20,8 +20,6 @@ class ApiClient {
   final String host;
   final int? port;
   final bool secure;
-
-  String? authenticationToken;
 
   Uri _makeUrl(
     String path, {
@@ -41,6 +39,8 @@ class ApiClient {
     String storageToken, {
     required bool isPrivate,
   }) async {
+    final authenticationToken =
+        await BlocSyncConfig.authenticationProvider.getToken();
     if (isPrivate && authenticationToken == null) {
       throw Exception('Authentication token is required for private data');
     }
@@ -50,7 +50,7 @@ class ApiClient {
       headers: {
         'x-api-key': apiKey,
         if (isPrivate && authenticationToken != null)
-          'x-authentication-token': authenticationToken!,
+          'x-authentication-token': authenticationToken,
       },
     );
     if (response.statusCode == 404) {
@@ -68,6 +68,8 @@ class ApiClient {
     required Map<String, dynamic> data,
     required bool isPrivate,
   }) async {
+    final authenticationToken =
+        await BlocSyncConfig.authenticationProvider.getToken();
     if (isPrivate && authenticationToken == null) {
       throw Exception('Authentication token is required for private data');
     }
@@ -78,7 +80,7 @@ class ApiClient {
         'x-modified-at': DateTime.now().toIso8601String(),
         'x-api-key': apiKey,
         if (isPrivate && authenticationToken != null)
-          'x-authentication-token': authenticationToken!,
+          'x-authentication-token': authenticationToken,
       },
       body: jsonEncode(data),
     );

@@ -1,3 +1,3 @@
 abstract class AuthenticationProvider {
-  Future<String> getToken();
+  Future<String?> getToken();
 }
