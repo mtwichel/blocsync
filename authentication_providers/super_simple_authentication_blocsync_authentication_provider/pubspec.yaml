@@ -1,0 +1,22 @@
+name: super_simple_authentication_blocsync_authentication_provider
+description: An authentication provider for Blocsync that uses Super Simple Authentication Authentication
+version: 0.0.1-dev.1
+homepage: https://blocsync.dev
+repository: https://github.com/mtwichel/blocsync
+issue_tracker: https://github.com/mtwichel/blocsync/issues
+
+environment:
+  sdk: ^3.0.0
+  flutter: ">=3.0.0"
+
+dependencies:
+  blocsync: ^0.0.1-dev.3
+  flutter:
+    sdk: flutter
+  super_simple_authentication_flutter: ^0.0.1-dev.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  very_good_analysis: ^9.0.0
