@@ -1,0 +1,21 @@
+name: supabase_blocsync_authentication_provider
+description: An authentication provider for Blocsync that uses Supabase Authentication
+version: 0.0.1-dev.1
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+  flutter: ^3.0.0
+
+dependencies:
+  blocsync:
+    path: ../../blocsync
+  flutter:
+    sdk: flutter
+  supabase_flutter: ^2.10.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  very_good_analysis: ^9.0.0
