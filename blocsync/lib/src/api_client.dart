@@ -39,23 +39,27 @@ class ApiClient {
     String storageToken, {
     required bool isPrivate,
   }) async {
-    final authenticationToken =
-        await BlocSyncConfig.authenticationProvider.getToken();
-    if (isPrivate && authenticationToken == null) {
+    String? authenticationToken;
+    if (isPrivate) {
+      authenticationToken =
+          await BlocSyncConfig.authenticationProvider.getToken();
       throw Exception('Authentication token is required for private data');
+    } else {
+      authenticationToken = null;
     }
 
     final response = await client.get(
       _makeUrl('/sync/$storageToken'),
       headers: {
         'x-api-key': apiKey,
-        if (isPrivate && authenticationToken != null)
+        if (authenticationToken != null)
           'x-authentication-token': authenticationToken,
       },
     );
     if (response.statusCode == 404) {
       return null;
     }
+    print(response.statusCode);
     if (response.statusCode != 200) {
       throw Exception('Failed to fetch data from server');
     }
@@ -68,10 +72,13 @@ class ApiClient {
     required Map<String, dynamic> data,
     required bool isPrivate,
   }) async {
-    final authenticationToken =
-        await BlocSyncConfig.authenticationProvider.getToken();
-    if (isPrivate && authenticationToken == null) {
+    String? authenticationToken;
+    if (isPrivate) {
+      authenticationToken =
+          await BlocSyncConfig.authenticationProvider.getToken();
       throw Exception('Authentication token is required for private data');
+    } else {
+      authenticationToken = null;
     }
 
     final response = await client.put(
@@ -88,6 +95,26 @@ class ApiClient {
     if (response.statusCode != 200) {
       throw Exception('Failed to save data to server');
     }
+  }
+
+  Future<WebSocket> subscribe(
+    String storageToken, {
+    required bool isPrivate,
+  }) async {
+    String? authenticationToken;
+    if (isPrivate) {
+      authenticationToken =
+          await BlocSyncConfig.authenticationProvider.getToken();
+      throw Exception('Authentication token is required for private data');
+    } else {
+      authenticationToken = null;
+    }
+
+    return WebSocket(_makeUrl('/live/$storageToken', scheme: 'ws'), headers: {
+      'x-api-key': apiKey,
+      if (authenticationToken != null)
+        'x-authentication-token': authenticationToken
+    });
   }
 
   WebSocket connect(String storageToken) {

@@ -3,7 +3,7 @@ import 'package:blocsync/src/blocsync_config.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 mixin SyncedMixin<State> on BlocBase<State> {
-  Future<void> init() async {
+  Future<void> startSyncing() async {
     final json = await BlocSyncConfig.apiClient.fetch(
       storageToken,
       isPrivate: isPrivate,

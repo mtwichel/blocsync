@@ -13,6 +13,7 @@ dependencies:
   http: ^1.4.0
   hydrated_bloc: ^10.0.0
   meta: ^1.16.0
+  uuid: ^4.5.1
   web_socket_client: ^0.2.1
 
 dev_dependencies:

@@ -5,7 +5,7 @@ abstract class SyncedBloc<Event, State> extends Bloc<Event, State>
     with HydratedMixin<State>, SyncedMixin<State> {
   SyncedBloc(super.initialState) {
     hydrate();
-    init();
+    startSyncing();
   }
 }
 
@@ -13,6 +13,6 @@ abstract class SyncedCubit<State> extends Cubit<State>
     with HydratedMixin<State>, SyncedMixin<State> {
   SyncedCubit(super.initialState) {
     hydrate();
-    init();
+    startSyncing();
   }
 }

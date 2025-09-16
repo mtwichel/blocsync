@@ -5,10 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "example",
-      "cwd": "example",
+      "name": "Launch Example App",
       "request": "launch",
-      "type": "dart"
+      "type": "dart",
+      "program": "blocsync/example/lib/main.dart",
+      "args": [
+        "--dart-define=API_KEY=test_api_key",
+      ]
     },
     {
       "name": "blocsync_server",
