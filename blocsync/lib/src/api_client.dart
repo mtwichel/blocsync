@@ -43,7 +43,9 @@ class ApiClient {
     if (isPrivate) {
       authenticationToken =
           await BlocSyncConfig.authenticationProvider.getToken();
-      throw Exception('Authentication token is required for private data');
+      if (authenticationToken == null) {
+        throw Exception('Authentication token is required for private data');
+      }
     } else {
       authenticationToken = null;
     }
@@ -59,7 +61,6 @@ class ApiClient {
     if (response.statusCode == 404) {
       return null;
     }
-    print(response.statusCode);
     if (response.statusCode != 200) {
       throw Exception('Failed to fetch data from server');
     }
@@ -76,7 +77,9 @@ class ApiClient {
     if (isPrivate) {
       authenticationToken =
           await BlocSyncConfig.authenticationProvider.getToken();
-      throw Exception('Authentication token is required for private data');
+      if (authenticationToken == null) {
+        throw Exception('Authentication token is required for private data');
+      }
     } else {
       authenticationToken = null;
     }
@@ -84,6 +87,7 @@ class ApiClient {
     final response = await client.put(
       _makeUrl('/sync/$storageToken'),
       headers: {
+        'Content-Type': 'application/json',
         'x-modified-at': DateTime.now().toIso8601String(),
         'x-api-key': apiKey,
         if (isPrivate && authenticationToken != null)
@@ -105,7 +109,9 @@ class ApiClient {
     if (isPrivate) {
       authenticationToken =
           await BlocSyncConfig.authenticationProvider.getToken();
-      throw Exception('Authentication token is required for private data');
+      if (authenticationToken == null) {
+        throw Exception('Authentication token is required for private data');
+      }
     } else {
       authenticationToken = null;
     }
