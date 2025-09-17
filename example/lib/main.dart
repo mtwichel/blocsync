@@ -16,7 +16,7 @@ Future<void> main() async {
 
   BlocSyncConfig.apiClient = ApiClient(
     baseUrl: 'http://localhost:8080',
-    apiKey: 'test_api_key',
+    apiKey: 'k_28668e1cc8998e7c824c0b55e5eef9d0',
   );
 
   runApp(const MainApp());

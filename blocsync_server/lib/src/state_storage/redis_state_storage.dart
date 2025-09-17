@@ -45,7 +45,16 @@ class RedisStateStorage implements StateStorage {
   }
 
   @override
-  Future<void> put(String key, Map<String, dynamic> value) async {
-    await _command.send_object(['SET', key, jsonEncode(value)]);
+  Future<void> put(
+    String key,
+    Map<String, dynamic> value, {
+    Duration? ttl,
+  }) async {
+    if (ttl != null) {
+      await _command
+          .send_object(['SET', key, jsonEncode(value), 'EX', ttl.inSeconds]);
+    } else {
+      await _command.send_object(['SET', key, jsonEncode(value)]);
+    }
   }
 }

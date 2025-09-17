@@ -116,16 +116,24 @@ class ApiClient {
       authenticationToken = null;
     }
 
-    return WebSocket(_makeUrl('/live/$storageToken', scheme: 'ws'), headers: {
-      'x-api-key': apiKey,
-      if (authenticationToken != null)
-        'x-authentication-token': authenticationToken
-    });
-  }
+    final ticketResponse = await client.post(
+      _makeUrl('/live/$storageToken'),
+      headers: {
+        'x-api-key': apiKey,
+        if (authenticationToken != null)
+          'x-authentication-token': authenticationToken,
+      },
+    );
 
-  WebSocket connect(String storageToken) {
-    final uri = _makeUrl('/subscribe/$storageToken', scheme: 'ws');
+    if (ticketResponse.statusCode != 200) {
+      throw Exception('Failed to get live ticket');
+    }
 
-    return WebSocket(uri, headers: {'x-api-key': apiKey});
+    final sessionId = jsonDecode(ticketResponse.body)['sessionId'];
+    if (sessionId is! String) {
+      throw Exception('Failed to get live session id');
+    }
+
+    return WebSocket(_makeUrl('/live/subscribe/$sessionId', scheme: 'ws'));
   }
 }
