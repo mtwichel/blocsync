@@ -4,22 +4,24 @@ description: Instantly sync your bloc states across devices in real-time
 ---
 
 <div class="video-container my-6">
-  <video controls autoplay loop class="w-full rounded-lg shadow-lg">
-    <source src="/live_bloc_demo.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+	<video controls autoplay loop class="w-full rounded-lg shadow-lg">
+		<source src="/live_bloc_demo.mp4" type="video/mp4" />
+		Your browser does not support the video tag.
+	</video>
 </div>
 
+`LiveBloc` is a bloc that syncs its state across devices in real-time. It works
+by
 
-`LiveBloc` is a bloc that syncs its state across devices in real-time. It works by
 1. Fetching the most recent state from the server.
 2. Subscribing to the server to receive events from all other devices.
-3. Writing the updated state to the server (only from the device that made the change).
+3. Writing the updated state to the server (only from the device that made the
+   change).
 
 ## Usage
 
-To use `LiveBloc`, first, simply extend it instead of `Bloc`. Next, add the `LiveEvent` mixin to your event class.
-
+To use `LiveBloc`, first, simply extend it instead of `Bloc`. Next, add the
+`LiveEvent` mixin to your event class.
 
 ```dart
 import 'package:blocsync/blocsync.dart';
@@ -38,29 +40,38 @@ class Increment extends CounterEvent {}
 class Decrement extends CounterEvent {}
 ```
 
-:::note[]
-There is no `LiveCubit`, only `LiveBloc`. This is because `LiveBloc` _doesn't_ sync states, only events.
-Since Cubits don't have events, they can't be synced in this way.
-:::
+:::note[] There is no `LiveCubit`, only `LiveBloc`. This is because `LiveBloc`
+_doesn't_ sync states, only events. Since Cubits don't have events, they can't
+be synced in this way. :::
 
 ## Other Features
 
-`LiveBloc`s can be made private and partitioned just like `SyncedBloc`s. For more information, see [Private Blocs](/basics/private-blocs) and [Partitioned Blocs](/basics/partitioned-blocs).
-
+`LiveBloc`s can be made private and partitioned just like `SyncedBloc`s. For
+more information, see [Private Blocs](/basics/private-blocs) and
+[Partitioned Blocs](/basics/partitioned-blocs).
 
 ## Why Sync Events instead of States?
 
-A lot of debate went into this decision. In the end, the decision came down to some future plans.
+A lot of debate went into this decision. In the end, the decision came down to
+some future plans.
 
-Primarily, we plan to support `SharedBloc`s soon, which will allow you to sync states across multiple users. However, this will require much more sophisticated security than private blocs. Some questions we asked were:
+Primarily, we plan to support `SharedBloc`s soon, which will allow you to sync
+states across multiple users. However, this will require much more sophisticated
+security than private blocs. Some questions we asked were:
 
 - How to we allow certain users to read state and others manipulate it?
-- How do we allow certain users to manipulate state in some ways, but others manipulate it in different ways?
+- How do we allow certain users to manipulate state in some ways, but others
+  manipulate it in different ways?
 
-We realized that we could restrict user's abilities to send events, and that would restrict their ability to manipulate state.
+We realized that we could restrict user's abilities to send events, and that
+would restrict their ability to manipulate state.
 
 It does have some drawbacks. It means
-- We can't support a `LiveCubit`
-- States are not guaranteed to be in sync across devices perfectly. If a user misses an event, the state will be out of sync.
 
-We're open to feedback on this decision. If you have feedback, please let us know in the [GitHub Discussions](https://github.com/mtwichel/blocsync/discussions).
+- We can't support a `LiveCubit`
+- States are not guaranteed to be in sync across devices perfectly. If a user
+  misses an event, the state will be out of sync.
+
+We're open to feedback on this decision. If you have feedback, please let us
+know in the
+[GitHub Discussions](https://github.com/mtwichel/blocsync/discussions).
