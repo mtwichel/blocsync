@@ -34,10 +34,6 @@ void main() async {
   BlocSyncConfig.authProvider = SuperSimpleAuthenticationBlocsyncAuthenticationProvider(
     authenticationClient: superSimpleAuthentication,
   );
-  BlocSyncConfig.apiClient = ApiClient(
-    baseUrl: Uri.parse('https://your-server.com'),
-    apiKey: 'your_api_key',
-  );
 
   runApp(MyApp());
 }

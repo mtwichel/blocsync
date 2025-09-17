@@ -1,0 +1,50 @@
+---
+title: 💧 On Device Caching
+description: On device caching for your blocs.
+---
+
+Blocsync uses the excellent [hydrated_bloc](https://pub.dev/packages/hydrated_bloc) package to cache your bloc states on device. 
+[`SyncedBloc`](/basics/synced-bloc) and [`LiveBloc`](/basics/live-bloc) both use [`HydratedMixin`](https://pub.dev/documentation/hydrated_bloc/latest/hydrated_bloc/HydratedMixin-mixin.html) to cache your bloc states on device.
+This means that bloc data is loaded from the on-device storage first, and then fetched from the server.
+
+## Set Up
+
+```dart
+import 'package:blocsync/blocsync.dart';
+import 'package:path_provider/path_provider.dart';
+
+BlocSyncConfig.storage = await HydratedStorage.build(
+    storageDirectory:
+        kIsWeb
+            ? HydratedStorageDirectory.web
+            : HydratedStorageDirectory((await getTemporaryDirectory()).path),
+  );
+```
+
+## Opting Out
+
+If you don't want to use on-device caching, instead of extending `SyncedBloc` or `LiveBloc`, extend `Bloc` directly and use the paired `SyncedMixin` or `LiveMixin` instead.
+
+### SyncedMixin
+
+```dart
+import 'package:blocsync/blocsync.dart';
+
+class MyBloc extends Bloc<MyEvent, MyState> with SyncedMixin<MyState> {
+  MyBloc() : super(MyState.initial()) {
+    startSyncing();
+  }
+}
+```
+
+### LiveMixin
+
+```dart
+import 'package:blocsync/blocsync.dart';
+
+class MyBloc extends Bloc<MyEvent, MyState> with LiveMixin<MyEvent, MyState> {
+  MyBloc() : super(MyState.initial()) {
+    startListening();
+  }
+}
+```

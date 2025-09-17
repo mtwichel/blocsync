@@ -42,9 +42,11 @@ class CounterBloc extends SyncedBloc<CounterEvent, int> {
 }
 ```
 
-:::tip[Selective Syncing] If you don't want certain parts of your state to be
-synced, simply don't include them in the JSON! Only the data you serialize in
-`toJson` will be synchronized across devices. :::
+:::tip[Selective Syncing]
+If you don't want certain parts of your state to be
+synced, simply don't include them in the JSON. Only the data you serialize in
+`toJson` will be synchronized across devices.
+:::
 
 ### Complex State Example
 
@@ -80,11 +82,3 @@ class TodoBloc extends SyncedBloc<TodoEvent, TodoState> {
 
 Your states will now automatically sync across devices! No additional setup
 required - `SyncedBloc` handles all the synchronization logic behind the scenes.
-
-- **Real-time sync**: Changes are pushed to other devices immediately
-- **Offline support**: Changes are queued and synced when connection is restored
-- **Conflict resolution**: Latest write wins for simplicity
-- **Efficient**: Only sends state diffs when possible
-
-Your bloc works exactly like a regular bloc, but with the added superpower of
-cross-device synchronization!
