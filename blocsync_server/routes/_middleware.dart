@@ -47,7 +47,7 @@ Handler middleware(Handler handler) {
   var newHandler = handler
       .use(corsMiddleware())
       .use(requestLogger())
-      // .use(apiKeyMiddleware())
+      .use(apiKeyMiddleware())
       .use(provider<StateStorage>((_) => storage));
   if (authenticationEnabled) {
     newHandler = newHandler.use(jwtMiddleware());

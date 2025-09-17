@@ -1,39 +1,32 @@
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:blocsync_server/blocsync_server.dart';
 import 'package:dart_frog/dart_frog.dart';
-import 'package:dart_frog_web_socket/dart_frog_web_socket.dart';
-
-final Map<String, Set<WebSocketChannel>> _channels = {};
+import 'package:uuid/uuid.dart';
 
 Future<Response> onRequest(RequestContext context, String id) async {
-  final handler = webSocketHandler((channel, protocol) {
-    _channels.putIfAbsent(id, () => {}).add(channel);
-    channel.stream.listen((message) async {
-      if (message is! String) {
-        return;
-      }
-      final decoded = Map<String, dynamic>.from(jsonDecode(message) as Map);
-      final event = decoded['event'] as Map<String, dynamic>?;
-      final state = decoded['state'] as Map<String, dynamic>?;
-      if (event != null) {
-        for (final otherChannel in _channels[id]!) {
-          if (otherChannel == channel) {
-            continue;
-          }
-          otherChannel.sink.add(message);
-        }
-      }
-      if (state != null) {
-        final userId = context.read<UserId>();
-        final storage = context.read<StateStorage>();
-        if (userId == null) {
-          await storage.put(id, state);
-        } else {
-          await storage.put('$userId:$id', state);
-        }
-      }
-    });
-  });
-  return handler(context);
+  return switch (context.request.method) {
+    HttpMethod.post => _onPost(context, id),
+    _ => Future.value(Response(statusCode: HttpStatus.methodNotAllowed)),
+  };
+}
+
+Future<Response> _onPost(RequestContext context, String id) async {
+  final userId = context.read<UserId>();
+  final storage = context.read<StateStorage>();
+  final sessionId = const Uuid().v4();
+  await storage.put(
+    'live_session:$sessionId',
+    {
+      'id': id,
+      'userId': userId,
+      'ip_address': context.request.headers['x-forwarded-for'],
+    },
+    ttl: const Duration(seconds: 2),
+  );
+  return Response.json(
+    body: {
+      'sessionId': sessionId,
+    },
+  );
 }

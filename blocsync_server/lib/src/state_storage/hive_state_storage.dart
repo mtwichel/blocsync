@@ -32,7 +32,11 @@ class HiveStateStorage implements StateStorage {
   }
 
   @override
-  Future<void> put(String key, Map<String, dynamic> value) async {
+  Future<void> put(
+    String key,
+    Map<String, dynamic> value, {
+    Duration? ttl,
+  }) async {
     await _box.put(key, value);
   }
 }

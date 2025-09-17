@@ -6,7 +6,7 @@ abstract class StateStorage {
   const StateStorage();
 
   /// Put a value in the storage.
-  Future<void> put(String key, Map<String, dynamic> value);
+  Future<void> put(String key, Map<String, dynamic> value, {Duration? ttl});
 
   /// Get a value from the storage.
   Future<Map<String, dynamic>?> get(String key);
