@@ -31,10 +31,6 @@ void main() async {
 
   // Configure Blocsync with Firebase Auth
   BlocSyncConfig.authProvider = FirebaseAuthProvider();
-  BlocSyncConfig.apiClient = ApiClient(
-    baseUrl: Uri.parse('https://your-server.com'),
-    apiKey: 'your_api_key',
-  );
 
   runApp(MyApp());
 }

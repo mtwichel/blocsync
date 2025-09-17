@@ -30,10 +30,6 @@ void main() async {
   );
 
   BlocSyncConfig.authProvider = SupabaseAuthProvider();
-  BlocSyncConfig.apiClient = ApiClient(
-    baseUrl: Uri.parse('https://your-server.com'),
-    apiKey: 'your_api_key',
-  );
 
   runApp(MyApp());
 }

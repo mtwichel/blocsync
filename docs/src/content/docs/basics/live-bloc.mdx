@@ -20,8 +20,9 @@ by
 
 ## Usage
 
-To use `LiveBloc`, first, simply extend it instead of `Bloc`. Next, add the
-`LiveEvent` mixin to your event class.
+### Step 1: Extend LiveBloc
+
+To use `LiveBloc`, first, simply extend it instead of `Bloc`.
 
 ```dart
 import 'package:blocsync/blocsync.dart';
@@ -32,6 +33,127 @@ class CounterBloc extends LiveBloc<CounterEvent, int> {
     on<Decrement>((event, emit) => emit(state - 1));
   }
 }
+```
+
+:::note[]
+There is no `LiveCubit`, only `LiveBloc`. This is because `LiveBloc`
+_doesn't_ sync states, only events. Since Cubits don't have events, they can't
+be synced in this way.
+:::
+
+### Step 2: Implement State Serialization
+
+Add `toJson` and `fromJson` methods to transform your state to and from JSON:
+
+```dart
+class CounterBloc extends SyncedBloc<CounterEvent, int> {
+  CounterBloc() : super(0) {
+    on<Increment>((event, emit) => emit(state + 1));
+    on<Decrement>((event, emit) => emit(state - 1));
+  }
+
+  @override
+  int fromJson(Map<String, dynamic> json) => json['value'] as int;
+
+  @override
+  Map<String, dynamic>? toJson(int state) => {'value': state};
+}
+```
+
+:::tip[Selective Syncing]
+If you don't want certain parts of your state to be
+synced, simply don't include them in the JSON. Only the data you serialize in
+`toJson` will be synchronized across devices.
+:::
+
+### Step 3: Add LiveEvent mixin to your event class
+
+```dart
+abstract class CounterEvent with LiveEvent {}
+
+class Increment extends CounterEvent {}
+
+class Decrement extends CounterEvent {}
+```
+
+### Step 4: Add event serialization
+
+Add `eventFromJson` and `eventToJson` methods to transform your events to and from JSON.
+
+```dart
+class CounterBloc extends SyncedBloc<CounterEvent, int> {
+  CounterBloc() : super(0) {
+    on<Increment>((event, emit) => emit(state + 1));
+    on<Decrement>((event, emit) => emit(state - 1));
+  }
+
+  @override
+  Map<String, dynamic>? eventToJson(CounterEvent event) {
+    switch (event) {
+      case Increment():
+        return {'type': 'increment'};
+      case Decrement():
+        return {'type': 'decrement'};
+    }
+    return null;
+  }
+
+  @override
+  CounterEvent? eventFromJson(Map<String, dynamic> json) {
+    final type = json['type'] as String;
+    switch (type) {
+      case 'increment':
+        return Increment();
+      case 'decrement':
+        return Decrement();
+    }
+    return null;
+  }
+}
+```
+
+That's it! 🎉 Your bloc will now sync events across devices in real-time.
+
+### Complete Example
+
+```dart
+import 'package:blocsync/blocsync.dart';
+
+class CounterBloc extends LiveBloc<CounterEvent, int> {
+  CounterBloc() : super(0) {
+    on<Increment>((event, emit) => emit(state + 1));
+    on<Decrement>((event, emit) => emit(state - 1));
+  }
+
+  @override
+  int fromJson(Map<String, dynamic> json) => json['value'] as int;
+
+  @override
+  Map<String, dynamic>? toJson(int state) => {'value': state};
+
+  @override
+  CounterEvent? eventFromJson(Map<String, dynamic> json) {
+    final type = json['type'] as String;
+    switch (type) {
+      case 'increment':
+        return Increment();
+      case 'decrement':
+        return Decrement();
+    }
+    return null;
+  }
+
+  @override
+  Map<String, dynamic>? eventToJson(CounterEvent event) {
+    switch (event) {
+      case Increment():
+        return {'type': 'increment'};
+      case Decrement():
+        return {'type': 'decrement'};
+    }
+    return null;
+  }
+}
 
 abstract class CounterEvent with LiveEvent {}
 
@@ -40,13 +162,9 @@ class Increment extends CounterEvent {}
 class Decrement extends CounterEvent {}
 ```
 
-:::note[] There is no `LiveCubit`, only `LiveBloc`. This is because `LiveBloc`
-_doesn't_ sync states, only events. Since Cubits don't have events, they can't
-be synced in this way. :::
+## Compatibility with Other Blocsync Features
 
-## Other Features
-
-`LiveBloc`s can be made private and partitioned just like `SyncedBloc`s. For
+`LiveBloc`s can be made **private** and **partitioned** just like `SyncedBloc`s. For
 more information, see [Private Blocs](/basics/private-blocs) and
 [Partitioned Blocs](/basics/partitioned-blocs).
 

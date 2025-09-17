@@ -38,6 +38,7 @@ export default defineConfig({
 							link: '/basics/partitioned-blocs/',
 						},
 						{ label: '🤫 Private Blocs', link: '/basics/private-blocs/' },
+						{ label: '💧 On Device Caching', link: '/basics/on-device-caching/' },
 						{ label: '🚀 LiveBloc', link: '/basics/live-bloc/' },
 					],
 				},
