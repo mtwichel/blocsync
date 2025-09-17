@@ -41,7 +41,6 @@ _doesn't_ sync states, only events. Since Cubits don't have events, they can't
 be synced in this way.
 :::
 
-
 ### Step 2: Implement State Serialization
 
 Add `toJson` and `fromJson` methods to transform your state to and from JSON:
@@ -60,6 +59,7 @@ class CounterBloc extends SyncedBloc<CounterEvent, int> {
   Map<String, dynamic>? toJson(int state) => {'value': state};
 }
 ```
+
 :::tip[Selective Syncing]
 If you don't want certain parts of your state to be
 synced, simply don't include them in the JSON. Only the data you serialize in
@@ -115,6 +115,7 @@ class CounterBloc extends SyncedBloc<CounterEvent, int> {
 That's it! 🎉 Your bloc will now sync events across devices in real-time.
 
 ### Complete Example
+
 ```dart
 import 'package:blocsync/blocsync.dart';
 
